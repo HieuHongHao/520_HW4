@@ -1,8 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ExpenseTrackerModel {
 
@@ -11,11 +9,12 @@ public class ExpenseTrackerModel {
   private List<Integer> matchedFilterIndices;
 
   // This is applying the Observer design pattern.                          
-  // Specifically, this is the Observable class. 
-    
+  // Specifically, this is the Observable class.
+    private Set<ExpenseTrackerModelListener> observers;
   public ExpenseTrackerModel() {
     transactions = new ArrayList<Transaction>();
     matchedFilterIndices = new ArrayList<Integer>();
+    observers = new HashSet<>();
   }
 
   public void addTransaction(Transaction t) {
@@ -73,6 +72,10 @@ public class ExpenseTrackerModel {
       // For the Observable class, this is one of the methods.
       //
       // TODO
+      if(listener != null && !observers.contains(listener)){
+          observers.add(listener);
+          return true;
+      }
       return false;
   }
 
@@ -80,19 +83,22 @@ public class ExpenseTrackerModel {
       // For testing, this is one of the methods.
       //
       //TODO
-      return 0;
+      return observers.size();
   }
 
   public boolean containsListener(ExpenseTrackerModelListener listener) {
       // For testing, this is one of the methods.
       //
       //TODO
-      return false;
+      return observers.contains(listener);
   }
 
   protected void stateChanged() {
       // For the Observable class, this is one of the methods.
       //
       //TODO
+      for(ExpenseTrackerModelListener observer : observers){
+          observer.update(this);
+      }
   }
 }

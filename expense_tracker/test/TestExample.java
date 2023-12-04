@@ -337,7 +337,7 @@ public class TestExample {
 
 	// Check the post-conditions
 	assertTrue(registered);
-	assertEquals(newModel.numberOfListeners(), 1);
+    assertEquals(newModel.numberOfListeners(), 1);
 	assertTrue(newModel.containsListener(newView));
     }
 
