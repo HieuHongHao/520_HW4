@@ -45,6 +45,7 @@ public class ExpenseTrackerController {
     
     Transaction t = new Transaction(amount, category);
     model.addTransaction(t);
+    view.update(model)
     return true;
   }
 
