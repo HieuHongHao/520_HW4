@@ -80,6 +80,7 @@ public class ExpenseTrackerController {
     }
 
     // The undo was disallowed.
+    view.update(model)
     return false;
   }    
 }
